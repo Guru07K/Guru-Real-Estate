@@ -12,7 +12,7 @@ dotenv.config({ path: './backend/.env' });
 const app = express();
 
 connectDataBase()
-const __dirname = path.resolve();
+
 
 app.use(express.json())
 app.use(cookieParser());
@@ -22,11 +22,12 @@ app.listen(process.env.PORT,()=>{
     console.log(`serverlistening on port : ${process.env.PORT}`);
 })
 
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 app.use('/api/user', authRouter)
 app.use('/api/listing', listingRouter)
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
