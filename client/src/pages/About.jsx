@@ -5,7 +5,7 @@ import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiTailwindcss, SiRedux } fr
 const About = () => {
   return (
     <div className="container mx-auto px-4 py-10 bg-white text-white">
-      <h1 className="text-5xl font-bold text-center mb-6 text-gray-900">About This Project</h1>
+      <h1 className="text-5xl font-bold text-center mb-6 text-slate-500">About This Project</h1>
       
       <p className="text-lg text-center mb-10 max-w-3xl mx-auto text-gray-900">
         This Real Estate platform is a comprehensive application developed using the MERN stack. 

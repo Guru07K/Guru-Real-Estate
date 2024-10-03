@@ -45,29 +45,29 @@ const Header = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
          <button>
-            <FaSearch className='text-slate-600' />
+            <FaSearch className='text-slate-600 hover:scale-125' />
           </button>
         </form>
         <ul className="flex gap-5 ">
-          <Link to={"/about"}>
-            <li className="hidden sm:inline hover:underline text-slate-700">
+          <Link to={"/about"} className='hover:scale-125'>
+            <li className="hidden sm:inline  text-slate-700">
               About
             </li>
           </Link>
 
-          <Link to={"/"}>
-            <li className="hidden sm:inline hover:underline text-slate-700">
+          <Link to={"/"} className='hover:scale-125'>
+            <li className="hidden sm:inline text-slate-700 hover:scale-125">
               Home
             </li>
           </Link>
 
           {token ? (
-            <Link to={"/profile"}>
+            <Link to={"/profile"} className='hover:scale-125'>
              <img className='h-7 w-7 rounded-full' src={user.avatar.url} alt="profile" />
             </Link>
           ) : (
-            <Link to={"/signin"}>
-              <li className=" hover:underline text-slate-700">Signin</li>
+            <Link to={"/signin"} className='hover:scale-125'>
+              <li className=" text-slate-700 ">Signin</li>
             </Link>
           )}
         </ul>
