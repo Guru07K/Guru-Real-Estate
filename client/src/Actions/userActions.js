@@ -52,13 +52,18 @@ export const updateProfileimage = (url, publicId) => async (dispatch) => {
 //  Delete User
 export const deleteUserAction = (userId) => async(dispatch) =>{
     dispatch(deleteUserRequest())
+    const res = await fetch(`/api/user/delete/${userId}`,{
+                    method: 'DELETE'
+                })
 
-    await fetch(`/api/user/delete/${userId}`,{
-        method: 'DELETE'
-    })
-    .then(res => res.json())
-    .then(data => {dispatch(deleteUserSuccess())})
-    .catch(err => dispatch(deleteUserFail(err.message)))
+    const data = await res.json() 
+    if(!data.success){
+        dispatch(deleteUserFail(data.message))
+        return
+    }
+    dispatch(deleteUserSuccess())
+    return data;           
+    
 }
 
 // Logout actions

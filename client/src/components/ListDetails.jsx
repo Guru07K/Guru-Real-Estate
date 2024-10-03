@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserListDetails, sendEmailToNodemailer } from '../Actions/listingAction';
+import { getOwnerDetails, getUserListDetails, sendEmailToNodemailer } from '../Actions/listingAction';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 
 const ListDetails = () => {
   const { listId } = useParams();
-  const { user } = useSelector(state => state.authState);
+  const [user , setUser] = useState()
 
   const [listDetails, setListDetails] = useState({});
 
@@ -47,8 +47,20 @@ const ListDetails = () => {
       const listData = await getUserListDetails(listId);
       setListDetails(listData);
     };
+
     fetchListData();
+
   }, [listId]);
+
+    useEffect(() => {
+      if (listDetails.user) {
+        const fetchOwner = async () => {
+          const owner =await getOwnerDetails(listDetails.user);
+          setUser(owner);
+        }
+        fetchOwner()
+      }
+    }, [listDetails]);
 
   const settings = {
     dots: true,
@@ -75,6 +87,7 @@ const ListDetails = () => {
       },
     ],
   };
+
 
   return (
     <div className="flex flex-col items-center p-8">
@@ -156,8 +169,8 @@ const ListDetails = () => {
         </div>
 
         {/* Right: User Information Section */}
-      
-        <div className="md:w-1/4 p-6 my-20 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center">
+      {
+        user && (<div className="md:w-1/4 p-6 my-20 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center">
           <h1 className="text-2xl font-semibold mb-7">Contact</h1>
           <img
             src={user.avatar.url}
@@ -185,7 +198,9 @@ const ListDetails = () => {
             </div>
           </div>
 
-        </div>
+        </div>)
+      }
+        
 
       </div>
     </div>

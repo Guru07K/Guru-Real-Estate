@@ -2,7 +2,7 @@ import {useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  deletePreviousAvatar, deleteUserAction, logoutAction, updateProfile, updateProfileimage } from '../Actions/userActions'
 import { Link, useNavigate } from 'react-router-dom'
-import { deletePreviewList, getUsersList } from '../Actions/listingAction'
+import { deletePreviewList} from '../Actions/listingAction'
 import { AiFillDelete } from "react-icons/ai";
 import { RiEdit2Fill } from "react-icons/ri";
 import { getUserDataSuccess } from '../slices/listSlice'
@@ -57,13 +57,24 @@ const Profile = () => {
     }
 };
  
-  const handleDeleteUser = () => dispatch(deleteUserAction(user._id))  
+  const handleDeleteUser = () => {
+      dispatch(deleteUserAction(user._id))
+      sessionStorage.clear('token');
+      navigate('/')  
+  }
   
   const handleLogoutUser = () => {
     dispatch(logoutAction)
     sessionStorage.clear('token');
     navigate('/')
   } 
+
+  const handleDeleteUserList = async (listItemId, userId) => {
+   const data = await dispatch(deletePreviewList(listItemId, userId))
+   if(data.success === true){
+     navigate('/')
+   }
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -80,7 +91,7 @@ const Profile = () => {
     }).then(res => res.json())
       .then(data => dispatch( getUserDataSuccess(data)) )
   }
-console.log(userList);
+
 
 
   return (
@@ -111,7 +122,7 @@ console.log(userList);
             name="name"
             placeholder={user.name}
             onChange={onchange}
-            value={userData.name}
+            // value={userData.name}
           />
           <input
             type="email"
@@ -119,7 +130,7 @@ console.log(userList);
             name="email"
             placeholder={user.email}
             onChange={onchange}
-            value={userData.email}
+           
           />
           <input
             type="password"
@@ -127,7 +138,7 @@ console.log(userList);
             name="password"
             placeholder="**********"
             onChange={onchange}
-            value={userData.password}
+          
           />
           <button
             disabled={loading}
@@ -188,10 +199,7 @@ console.log(userList);
         
      {/* <p className='my-5 text-red-500 text-center'>No listed added yet...</p>} */}
       </div>
-      
-      {
-          
-      }
+    
       {/* Listings */}
       <div>
         {loading && <p>Loading...</p>}
@@ -227,7 +235,7 @@ console.log(userList);
                           <RiEdit2Fill className='h-6 w-14 mt-5 hover:scale-150'></RiEdit2Fill >
                         </button>
                           
-                        <button onClick={() => dispatch(deletePreviewList(listItem._id, user._id))}  type='button'>
+                        <button onClick={() => handleDeleteUserList(listItem._id, user._id)}  type='button'>
                           <AiFillDelete className='h-6 w-14 mt-5 hover:scale-150'> </AiFillDelete>
                         </button>
                     </div>

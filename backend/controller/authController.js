@@ -157,3 +157,11 @@ exports.logOut = async (req, res, next ) => {
         message: 'User logged out successfully'
     })
 }
+
+
+exports.getUserById = async (req,res,next) => {
+         
+        const user = await User.findById(req.params.userId)
+        res.status(200).json(user)   
+   
+}

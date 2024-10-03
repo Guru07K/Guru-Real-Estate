@@ -159,7 +159,7 @@ useEffect(()=>{
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    <input className='p-3 border-gray-500 rounded-lg ' onChange={handleChange} value={listingData.regularPrice} type="number" id='regularPrice' min={1} max={10} required/>
+                    <input className='p-3 border-gray-500 rounded-lg ' onChange={handleChange} value={listingData.regularPrice} type="number" id='regularPrice'  required/>
                     <div className="flex flex-col items-center">
                         <p>Regular price</p>
                         <span className='text-sm'>($ / month)</span>
@@ -168,7 +168,7 @@ useEffect(()=>{
 
                   { listingData.offer && (
                       <div className="flex items-center gap-2">
-                        <input className='p-3 border-gray-500 rounded-lg ' onChange={handleChange} value={listingData.discountedPrice} type="number" id='discountedPrice' min={1} max={10} required/>
+                        <input className='p-3 border-gray-500 rounded-lg ' onChange={handleChange} value={listingData.discountedPrice} type="number" id='discountedPrice' required/>
                         <div className="flex flex-col items-center">
                             <p>Dicounted price</p>
                             <span className='text-sm'>($ / month)</span>

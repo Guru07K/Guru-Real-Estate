@@ -32,25 +32,16 @@ export const createList =  (listData, navigate) => async (dispatch)=> {
     .catch(err => dispatch(createListFail(err.message)))
 }
 
-// GET User's lists
-export const getUsersList = async (dispatch) =>{
-  await fetch(`/api/listing/getListbyuser/${userId}`,{
-    method: 'GET',
-    headers : {
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-    .then(data => dispatch( getUserDataSuccess(data)) )
-
-}
-
 // Delete User list
 export const deletePreviewList =  (listId, userId) => async (dispatch)=> {
-   await fetch(`/api/listing/deleteuserlist/${listId}`,{
-     method: 'DELETE'
-   }).then(res => res.json())
-     .then(data => dispatch(getUsersList(userId)))
+  const res =  await fetch(`/api/listing/deleteuserlist/${listId}`,{
+    method: 'DELETE'
+  })
+  const data = await res.json()
+  return data;
+  
 }
+
 
 //   /api/listing/createlist
 export const updateList =  (listId, listData, navigate, setSelectedFiles) => async (dispatch)=> {
@@ -87,6 +78,18 @@ export const getUserListDetails = async (listId) => {
     return data;
 
 };
+
+// Get user
+export const getOwnerDetails = async (userId) => {
+  const response = await fetch(`/api/user/getuserbyid/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json()
+  return data;
+}
 
 // Send email 
 export const sendEmailToNodemailer = async (options)=>{
