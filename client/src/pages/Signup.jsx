@@ -85,7 +85,7 @@ const Signup = () => {
         <input type="password" className='border p-3 rounded-lg  focus:outline-none' placeholder='password' id='password' value={userData.password} onChange={onChange}/>
         <input type="file" className='border p-3 rounded-lg  focus:outline-none' id='avatar' onChange={onChange}/>
         <button disabled={uploadLoading} className='bg-slate-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'>
-          {loading ? 'Loading...' : 'SIGN UP'}
+          {uploadLoading ? 'Profile Uploding...' : 'SIGN UP'}
         </button>
        
       </form>
