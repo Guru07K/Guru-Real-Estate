@@ -32,9 +32,7 @@ const Search = () => {
         if (e.target.id === 'sort_order') {
             const sort = e.target.value.split('_')[0] || 'createdAt';
             const order = e.target.value.split('_')[1] || 'desc';
-            console.log(sort, order);
-            
-      
+                
             setSidebardata({ ...sidebardata, sort, order });
           }
       }
@@ -143,7 +141,7 @@ const Search = () => {
 
                 <div className="flex items-center gap-2">
                     <label className='font-semibold'>Sort:</label>
-                    <select  className='border rounded-lg p-3' id="sort_order" onChange={handleChange}>
+                    <select  className='border rounded-lg p-3' id="sort_order" onChange={handleChange}  value={`${sidebardata.sort}_${sidebardata.order}`} >
                         <option value='regularPrice_desc'>Price high to low</option>
                         <option value='regularPrice_asc'>Price low to hight</option>
                         <option value='createdAt_desc'>Latest</option>
