@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",   // Specifies ECMAScript target version (ES6)
+    "module": "commonjs",  // Specifies the module code generation (CommonJS)
+    "baseUrl": "./",  // Base directory for resolving non-relative module names
+    "paths": {
+      "@components/*": ["src/components/*"]  // Optional: Aliases for easier imports
+    }
+  },
+  "include": ["src/**/*"]  // Specifies files to be included in compilation
+}
