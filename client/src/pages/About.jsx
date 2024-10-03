@@ -59,30 +59,30 @@ const About = () => {
       </div>
 
       <h2 className="text-3xl font-semibold text-center mb-6 mt-16 text-gray-900">Technologies Used</h2>
-      <div className="flex justify-center space-x-10 mb-10">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-wrap justify-center gap-8 mb-10">
+        <div className="flex flex-col items-center">
           <SiMongodb className="text-green-600 text-6xl" />
-          <span className="text-gray-900 text-xl">MongoDB</span>
+          <span className="text-gray-900 text-lg">MongoDB</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col items-center">
           <SiExpress className="text-gray-600 text-6xl" />
-          <span className="text-gray-900 text-xl">Express.js</span>
+          <span className="text-gray-900 text-lg">Express.js</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col items-center">
           <SiReact className="text-blue-600 text-6xl" />
-          <span className="text-gray-900 text-xl">React.js</span>
+          <span className="text-gray-900 text-lg">React.js</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col items-center">
           <SiNodedotjs className="text-green-800 text-6xl" />
-          <span className="text-gray-900 text-xl">Node.js</span>
+          <span className="text-gray-900 text-lg">Node.js</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col items-center">
           <SiTailwindcss className="text-teal-600 text-6xl" />
-          <span className="text-gray-900 text-xl">Tailwind CSS</span>
+          <span className="text-gray-900 text-lg">Tailwind CSS</span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col items-center">
           <SiRedux className="text-purple-600 text-6xl" />
-          <span className="text-gray-900 text-xl">Redux</span>
+          <span className="text-gray-900 text-lg">Redux</span>
         </div>
       </div>
 
@@ -91,7 +91,6 @@ const About = () => {
         <a 
           href="https://github.com/Guru07K" 
           target="_blank" 
-          rel="noopener noreferrer" 
           className="bg-transparent text-gray-700 hover:bg-gray-200 py-2 px-2 rounded-full transition duration-200 flex items-center"
         >
           <FaGithub className="text-gray-700 text-4xl hover:scale-150" />
@@ -99,7 +98,6 @@ const About = () => {
         <a 
           href="https://www.linkedin.com/in/gnanaguruk/" 
           target="_blank" 
-          rel="noopener noreferrer" 
           className="bg-transparent text-gray-700 hover:bg-gray-200 py-2 px-2 rounded-full transition duration-200 flex items-center"
         >
           <FaLinkedin className="text-gray-700 text-4xl hover:scale-150" />
