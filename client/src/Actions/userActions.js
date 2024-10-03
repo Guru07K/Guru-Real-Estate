@@ -1,4 +1,5 @@
-import { deleteUserFail, deleteUserRequest, deleteUserSuccess, logOutUserFail, logOutUserRequest, logOutUserSuccess, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
+import { toast } from "react-toastify";
+import { clearError, clearMessage, deleteUserFail, deleteUserRequest, deleteUserSuccess, logOutUserFail, logOutUserRequest, logOutUserSuccess, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
 
 
 // Profile update actions
@@ -57,10 +58,22 @@ export const deleteUserAction = (userId) => async(dispatch) =>{
                 })
 
     const data = await res.json() 
+    if(data.success === true) {
+        if(data.message){
+            toast(data.message,{
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            theme :'colored'
+            })
+        }
+    } 
     if(!data.success){
         dispatch(deleteUserFail(data.message))
         return
     }
+
     dispatch(deleteUserSuccess())
     return data;           
     
@@ -71,7 +84,28 @@ export const logoutAction = async (dispatch) => {
     dispatch(logOutUserRequest())
     await fetch(`/api/user/logout`)
           .then(response => response.json())
-          .then(data => dispatch(logOutUserSuccess()))
-          .catch(err => dispatch(logOutUserFail(err.message)))
+          .then(data => {
+                dispatch(logOutUserSuccess())
+                if(data.success === true) {
+                    if(data.message){
+                        toast(data.message,{
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        theme :'colored'
+                        })
+                    }
+                } 
+            }).catch(err => {
+                dispatch(logOutUserFail(err.message))
+            })
 }
 
+export const clearAuthError = (dispatch) => {
+    dispatch(clearError())
+}
+
+export const clearAuthMessage = (dispatch) => {
+    dispatch(clearMessage())
+}

@@ -1,12 +1,11 @@
 import {useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {  deletePreviousAvatar, deleteUserAction, logoutAction, updateProfile, updateProfileimage } from '../Actions/userActions'
+import { deletePreviousAvatar, deleteUserAction, logoutAction, updateProfile, updateProfileimage } from '../Actions/userActions'
 import { Link, useNavigate } from 'react-router-dom'
 import { deletePreviewList} from '../Actions/listingAction'
 import { AiFillDelete } from "react-icons/ai";
 import { RiEdit2Fill } from "react-icons/ri";
 import { getUserDataSuccess } from '../slices/listSlice'
-
 
 
 const Profile = () => {
@@ -91,6 +90,7 @@ const Profile = () => {
     }).then(res => res.json())
       .then(data => dispatch( getUserDataSuccess(data)) )
   }
+
 
 
 

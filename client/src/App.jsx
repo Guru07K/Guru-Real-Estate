@@ -11,11 +11,14 @@ import CreateList from './pages/CreateList'
 import UpdateList from './pages/UpdateList'
 import ListDetails from './components/ListDetails'
 import Search from './components/Search'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const App = () => {
   return (
     <BrowserRouter>
     <Header/>
+    <ToastContainer/>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>

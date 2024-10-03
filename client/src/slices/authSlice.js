@@ -23,7 +23,7 @@ const authSlice = createSlice({
         },
         signUpSuccess(state, action){
             return{
-                message: 'Profile has been created',
+                message: action.payload,
                 loading : false
             }
         },
@@ -44,14 +44,26 @@ const authSlice = createSlice({
             return{
                 loading : false,
                 isAuthenticated : true,
-                user : action.payload,
-                message: 'Login successfully',
+                user : action.payload.user,
+                message: action.payload.message,
             }
         },
         loginFail(state, action){
             return{
                 loading : false,
                 error : action.payload
+            }
+        },
+        clearError(state, action){
+            return{
+                ...state,
+                error:null
+            }
+        },
+        clearMessage(state, action){
+            return{
+                ...state,
+                message:null
             }
         },
         updateProfileRequest(state, action){
@@ -126,6 +138,7 @@ const authSlice = createSlice({
 export const  {loginStart, loginSuccess, loginFail, logout,
                 signUpStart, signUpSuccess, signUpFail,updateProfileRequest,updateProfileSuccess,updateProfileFail,
                 deleteUserRequest, deleteUserSuccess, deleteUserFail, logOutUserRequest, logOutUserFail, logOutUserSuccess
+                , clearError, clearMessage, 
               } = authSlice.actions;
 
 export default authSlice.reducer;

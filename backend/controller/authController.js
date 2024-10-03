@@ -43,9 +43,6 @@ exports.register = async (req, res, next) => {
             user : rest
         })
     } catch (error) {
-        console.log('====================================');
-        console.log(error);
-        console.log('====================================');
         return next(new ErrorHandler('user already exsist', 400))
     }
 }

@@ -66,7 +66,7 @@ const Signup = () => {
         dispatch(signUpFail(data.message))
         return
       }else{
-        dispatch(signUpSuccess())
+        dispatch(signUpSuccess(data.message))
         navigate('/signin')
       }
     })
