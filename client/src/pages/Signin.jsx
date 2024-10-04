@@ -5,6 +5,8 @@ import { loginFail, loginStart, loginSuccess } from '../slices/authSlice'
 import { toast } from 'react-toastify'
 import { clearAuthError, clearAuthMessage } from '../Actions/userActions'
 import Swal from 'sweetalert2'
+import Backbutton from '../components/Backbutton'
+import { Helmet } from 'react-helmet-async'
 
 
 const Signin = () => {
@@ -75,26 +77,30 @@ const Signin = () => {
     },[error, message])
 
   return (
-    <div className='max-w-lg p-3 mx-auto'>
-      <h1 className='text-center text-3xl font-semibold my-5'>Signin</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
-        <input type="text" className='focus:outline-none p-3 border rounded-lg' placeholder='Email' id='email' onChange={onchange} value={userData.name}/>
-        <input type="password" className='focus:outline-none p-3 border rounded-lg' placeholder='password' id='password'  onChange={onchange} value={userData.password}/>
-        <button disabled={loading} className='bg-slate-700 p-3 rounded-lg text-white hover:opacity-90'>
-         {loading ? 'Loading...' : 'SIGN IN'}
-        </button>
-      
-       
-      </form>
+    <>
+    <Helmet title="Signin -gur's Estate"/>
+    <Backbutton/>
+      <div className='max-w-lg p-3 mx-auto'>
+        <h1 className='text-center text-3xl font-semibold my-5'>Signin</h1>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+          <input type="text" className='focus:outline-none p-3 border rounded-lg' placeholder='Email' id='email' onChange={onchange} value={userData.name}/>
+          <input type="password" className='focus:outline-none p-3 border rounded-lg' placeholder='password' id='password'  onChange={onchange} value={userData.password}/>
+          <button disabled={loading} className='bg-slate-700 p-3 rounded-lg text-white hover:opacity-90'>
+          {loading ? 'Loading...' : 'SIGN IN'}
+          </button>
+        
+        
+        </form>
 
-      <div className='flex gap-2 mt-4'>
-        <p>Dont have an account?</p>
-         <Link to="/signup">
-          <span className='text-blue-600 '>Signup</span>
-        </Link>
+        <div className='flex gap-2 mt-4'>
+          <p>Dont have an account?</p>
+          <Link to="/signup">
+            <span className='text-blue-600 '>Signup</span>
+          </Link>
+        </div>
+
       </div>
-
-    </div>
+    </>
   )
 }
 

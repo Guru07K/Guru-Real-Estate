@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ListingItem from './ListingItem';
+import Backbutton from './Backbutton';
+import { Helmet } from 'react-helmet-async';
 
 const Search = () => {
     const [sidebardata, setSidebardata] = useState({
@@ -87,88 +89,92 @@ const Search = () => {
      
 
   return (
-    <div className='flex flex-col md:flex-row'>
-        <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
-            <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
+    <>
+     <Helmet title="Search -gur's Estate"/>
+    <Backbutton/>
+        <div className='flex flex-col md:flex-row'>
+            <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
+                <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
 
-                <div className="flex items-center flex-col gap-2">
-                    <label> Search items</label>
-                    <input id='searchTerm' className='w-full border-gray-600 p-3 rounded-lg' type="text" placeholder='Search...' value={sidebardata.searchTerm}onChange={handleChange} />
-                </div>
+                    <div className="flex items-center flex-col gap-2">
+                        <label> Search items</label>
+                        <input id='searchTerm' className='w-full border-gray-600 p-3 rounded-lg' type="text" placeholder='Search...' value={sidebardata.searchTerm}onChange={handleChange} />
+                    </div>
 
-                <div className="flex gap-2 flex-wrap items-center my-4">
-                    <label> Type:</label>
-                    <div className="flex gap-2">
-                        <input id='all'className='w-5' type="checkbox" checked={sidebardata.type === 'all'}    onChange={handleChange} />
-                        <span>Rent & Sale</span>
+                    <div className="flex gap-2 flex-wrap items-center my-4">
+                        <label> Type:</label>
+                        <div className="flex gap-2">
+                            <input id='all'className='w-5' type="checkbox" checked={sidebardata.type === 'all'}    onChange={handleChange} />
+                            <span>Rent & Sale</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input id='rent'className='w-5' type="checkbox" checked={sidebardata.type === 'rent'}    onChange={handleChange} />
+                            <span>Rent</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input id='sale'className='w-5' type="checkbox" checked={sidebardata.type === 'sale'}    onChange={handleChange} />
+                            <span>Sale</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <input id='offer'className='w-5' type="checkbox" checked={sidebardata.offer}    onChange={handleChange} />
+                            <span>Offer</span>
+                        </div>
                     </div>
-                    <div className="flex gap-2">
-                        <input id='rent'className='w-5' type="checkbox" checked={sidebardata.type === 'rent'}    onChange={handleChange} />
-                        <span>Rent</span>
-                    </div>
-                    <div className="flex gap-2">
-                        <input id='sale'className='w-5' type="checkbox" checked={sidebardata.type === 'sale'}    onChange={handleChange} />
-                        <span>Sale</span>
-                    </div>
-                    <div className="flex gap-2">
-                        <input id='offer'className='w-5' type="checkbox" checked={sidebardata.offer}    onChange={handleChange} />
-                        <span>Offer</span>
-                    </div>
+                    <div className='flex gap-2 flex-wrap items-center'>
+                <label className='font-semibold'>Amenities:</label>
+                <div className='flex gap-2'>
+                <input
+                    type='checkbox'
+                    id='parking'
+                    className='w-5'
+                    onChange={handleChange}
+                    checked={sidebardata.parking}
+                />
+                <span>Parking</span>
                 </div>
-                <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Amenities:</label>
-            <div className='flex gap-2'>
-              <input
-                type='checkbox'
-                id='parking'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.parking}
-              />
-              <span>Parking</span>
+                <div className='flex gap-2'>
+                <input
+                    type='checkbox'
+                    id='furnished'
+                    className='w-5'
+                    onChange={handleChange}
+                    checked={sidebardata.furnished}
+                />
+                <span>Furnished</span>
+                </div>
             </div>
-            <div className='flex gap-2'>
-              <input
-                type='checkbox'
-                id='furnished'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.furnished}
-              />
-              <span>Furnished</span>
+
+                    <div className="flex items-center gap-2">
+                        <label className='font-semibold'>Sort:</label>
+                        <select  className='border rounded-lg p-3' id="sort_order" onChange={handleChange}  value={`${sidebardata.sort}_${sidebardata.order}`} >
+                            <option value='regularPrice_desc'>Price high to low</option>
+                            <option value='regularPrice_asc'>Price low to hight</option>
+                            <option value='createdAt_desc'>Latest</option>
+                            <option value='createdAt_asc'>Oldest</option>
+                        </select>
+                    </div>
+
+                    <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+                        Search
+                    </button>
+
+                </form>
             </div>
-          </div>
 
-                <div className="flex items-center gap-2">
-                    <label className='font-semibold'>Sort:</label>
-                    <select  className='border rounded-lg p-3' id="sort_order" onChange={handleChange}  value={`${sidebardata.sort}_${sidebardata.order}`} >
-                        <option value='regularPrice_desc'>Price high to low</option>
-                        <option value='regularPrice_asc'>Price low to hight</option>
-                        <option value='createdAt_desc'>Latest</option>
-                        <option value='createdAt_asc'>Oldest</option>
-                    </select>
+
+            <div className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
+                <h1>Search Result</h1>
+                <div className='p-7 flex flex-wrap gap-4'>
+                    { listings &&
+                        listings.map((listing) => (
+                        <ListingItem key={listing._id} listing={listing} />
+                        ))
+                    }
                 </div>
+            </div>
 
-                <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-                    Search
-                 </button>
-
-            </form>
         </div>
-
-
-        <div className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
-            <h1>Search Result</h1>
-            <div className='p-7 flex flex-wrap gap-4'>
-                { listings &&
-                    listings.map((listing) => (
-                    <ListingItem key={listing._id} listing={listing} />
-                    ))
-                }
-            </div>
-        </div>
-
-    </div>
+    </>
   )
 }
 

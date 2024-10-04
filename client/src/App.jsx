@@ -13,26 +13,32 @@ import ListDetails from './components/ListDetails'
 import Search from './components/Search'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { HelmetProvider } from 'react-helmet-async'
 
 const App = () => {
   return (
     <BrowserRouter>
-    <Header/>
-    <ToastContainer/>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/about' element={<About/>}/>
-          <Route element={<ProtectedRoute/>}>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/createlisting' element={<CreateList/>}/>
-            <Route path='/updatelist/:listId' element={<UpdateList/>}/>
-            <Route path='/listDetails/:listId' element={<ListDetails/>}/>
-          </Route>
-          <Route path='/signin' element={<Signin/>}/>
-          <Route path='/search' element={<Search/>}/>
-          <Route path='/signup' element={<Signup/>}/>
-        </Routes>
-   
+     <HelmetProvider>
+       <Header/>
+       <ToastContainer/>
+       
+
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/about' element={<About/>}/>
+              <Route element={<ProtectedRoute/>}>
+                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/createlisting' element={<CreateList/>}/>
+                <Route path='/updatelist/:listId' element={<UpdateList/>}/>
+                <Route path='/listDetails/:listId' element={<ListDetails/>}/>
+              </Route>
+              <Route path='/signin' element={<Signin/>}/>
+              <Route path='/search' element={<Search/>}/>
+              <Route path='/signup' element={<Signup/>}/>
+            </Routes>
+
+
+      </HelmetProvider>
     </BrowserRouter>
   )
 }

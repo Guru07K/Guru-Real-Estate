@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import {clearError, signUpFail, signUpStart, signUpSuccess } from '../slices/authSlice'
 import { toast } from 'react-toastify'
+import Backbutton from '../components/Backbutton'
+import { Helmet } from 'react-helmet-async'
 
 
 const Signup = () => {
@@ -92,27 +94,31 @@ const Signup = () => {
   },[error])
 
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-8'>Signup</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
-        <input type="text" className='border p-3 rounded-lg  focus:outline-none' placeholder='Username' id='name' value={userData.name} onChange={onChange}/>
-        <input type="Email" className='border p-3 rounded-lg  focus:outline-none' placeholder='Email' id='email' value={userData.email} onChange={onChange}/>
-        <input type="password" className='border p-3 rounded-lg  focus:outline-none' placeholder='password' id='password' value={userData.password} onChange={onChange}/>
-        <input type="file" className='border p-3 rounded-lg  focus:outline-none' id='avatar' onChange={onChange}/>
-        <button disabled={uploadLoading} className='bg-slate-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'>
-          {uploadLoading ? 'Profile Uploding...' : 'SIGN UP'}
-        </button>
-       
-      </form>
+    <>
+     <Helmet title="Signup -gur's Estate"/>
+     <Backbutton/>
+      <div className='p-3 max-w-lg mx-auto'>
+        <h1 className='text-3xl font-semibold text-center my-8'>Signup</h1>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+          <input type="text" className='border p-3 rounded-lg  focus:outline-none' placeholder='Username' id='name' value={userData.name} onChange={onChange}/>
+          <input type="Email" className='border p-3 rounded-lg  focus:outline-none' placeholder='Email' id='email' value={userData.email} onChange={onChange}/>
+          <input type="password" className='border p-3 rounded-lg  focus:outline-none' placeholder='password' id='password' value={userData.password} onChange={onChange}/>
+          <input type="file" className='border p-3 rounded-lg  focus:outline-none' id='avatar' onChange={onChange}/>
+          <button disabled={uploadLoading} className='bg-slate-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'>
+            {uploadLoading ? 'Profile Uploding...' : 'SIGN UP'}
+          </button>
+        
+        </form>
 
-      <div className='flex gap-2 mt-3'>
-        <p>Have an account?</p>
-        <Link to={'/signin'}>
-          <span className='text-blue-700'>Signin</span>
-        </Link>
+        <div className='flex gap-2 mt-3'>
+          <p>Have an account?</p>
+          <Link to={'/signin'}>
+            <span className='text-blue-700'>Signin</span>
+          </Link>
+        </div>
+
       </div>
-
-    </div>
+    </>
   )
 }
 

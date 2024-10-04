@@ -8,6 +8,8 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { getUserDataSuccess } from '../slices/listSlice'
 import { Alert, Button, Stack } from '@mui/material'
 import Swal from 'sweetalert2'
+import Backbutton from '../components/Backbutton'
+import { Helmet } from 'react-helmet-async'
 
 
 const Profile = () => {
@@ -142,6 +144,8 @@ const Profile = () => {
 
   return (
     <>
+     <Helmet title='Your profile'/>
+     <Backbutton/>
       <div className="p-3 max-w-lg mx-auto">
         <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
