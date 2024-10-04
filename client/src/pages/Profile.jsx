@@ -56,7 +56,7 @@ const Profile = () => {
     } else {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     }
-};
+  }
  
   const handleDeleteUser = () => {
       
@@ -156,7 +156,7 @@ const Profile = () => {
               />
               <img
                 src={prevAvatar}
-                className="h-48 w-48 rounded-full cursor-pointer hover:opacity-40"
+                className="h-48 w-48 rounded-full cursor-pointer object-cover hover:opacity-40 hover:scale-110"
                 alt="profile"
               />
             </label>

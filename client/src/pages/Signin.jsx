@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { loginFail, loginStart, loginSuccess } from '../slices/authSlice'
 import { toast } from 'react-toastify'
 import { clearAuthError, clearAuthMessage } from '../Actions/userActions'
+import Swal from 'sweetalert2'
 
 
 const Signin = () => {
@@ -47,7 +48,7 @@ const Signin = () => {
 
     useEffect(()=>{
       if(error){
-          toast(error,{
+          toast(error,{  // Toastify
             type:'error',
             position: 'bottom-center',
             hideProgressBar: true,
@@ -58,15 +59,17 @@ const Signin = () => {
       }
 
       if(message){
-          toast(message,{
-            position: 'bottom-center',
-            type :'success',
-            hideProgressBar: true,
-            autoClose: 3000,
-            closeOnClick: true,
-            theme : 'dark',
-            onOpen : () => dispatch(clearAuthMessage)
-          })
+        const Toast = Swal.mixin({    // SweetAlert2
+          toast: true,
+          position: "bottom",  
+          showConfirmButton: false,
+          timer: 3000,
+          didOpen: () => dispatch(clearAuthMessage())
+        });
+        Toast.fire({
+          icon: "success",
+          title: message,
+        });
       }
     
     },[error, message])

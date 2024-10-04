@@ -4,6 +4,7 @@ import { createList, uploadImage } from '../Actions/listingAction'
 import { listImageUploadfail, listImageUploading, listImageUploadSuccess } from '../slices/listSlice'
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 
 
@@ -67,8 +68,9 @@ const CreateList = () => {
         ...listingData, 
         images: [...listingData.images, ...up_image],
       })
-  
+      
       dispatch(listImageUploadSuccess())
+      setUploadeimageBefore(null)
     } catch (error) {
       dispatch(listImageUploadfail())
     }
@@ -190,7 +192,7 @@ const deletePreviewImage = (index) =>{
               }</button>
               
               <div className="">
-                { uploadeimageBefore && <p className='text-red-600'>{uploadeimageBefore}</p>}
+                { uploadeimageBefore && <Alert severity='warning'>{uploadeimageBefore}</Alert>}
               </div>
             </div>
   
