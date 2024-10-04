@@ -61,6 +61,7 @@ export const deleteUserAction = (userId) => async(dispatch) =>{
     if(data.success === true) {
         if(data.message){
             toast(data.message,{
+            type : 'success',
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -89,11 +90,12 @@ export const logoutAction = async (dispatch) => {
                 if(data.success === true) {
                     if(data.message){
                         toast(data.message,{
+                        type : 'success',
                         position: "bottom-center",
                         autoClose: 3000,
-                        hideProgressBar: false,
+                        hideProgressBar: true,
                         closeOnClick: true,
-                        theme :'colored'
+                        theme :'dark'
                         })
                     }
                 } 

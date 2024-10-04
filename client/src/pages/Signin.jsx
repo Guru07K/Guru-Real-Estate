@@ -50,7 +50,8 @@ const Signin = () => {
           toast(error,{
             type:'error',
             position: 'bottom-center',
-            hideProgressBar: false,
+            hideProgressBar: true,
+            autoClose: 3000,
             theme : 'dark',
             onOpen : () => dispatch(clearAuthError)
           })
@@ -59,10 +60,11 @@ const Signin = () => {
       if(message){
           toast(message,{
             position: 'bottom-center',
-            hideProgressBar: false,
+            type :'success',
+            hideProgressBar: true,
             autoClose: 3000,
             closeOnClick: true,
-            theme : 'colored',
+            theme : 'dark',
             onOpen : () => dispatch(clearAuthMessage)
           })
       }
@@ -78,6 +80,7 @@ const Signin = () => {
         <button disabled={loading} className='bg-slate-700 p-3 rounded-lg text-white hover:opacity-90'>
          {loading ? 'Loading...' : 'SIGN IN'}
         </button>
+      
        
       </form>
 
@@ -87,12 +90,7 @@ const Signin = () => {
           <span className='text-blue-600 '>Signup</span>
         </Link>
       </div>
-
-      <div>
-       {error && <p className='text-red-500 mt-5'>{error}</p>}
-      </div>
-
-
+      
     </div>
   )
 }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
-import {signUpFail, signUpStart, signUpSuccess } from '../slices/authSlice'
+import {clearError, signUpFail, signUpStart, signUpSuccess } from '../slices/authSlice'
+import { toast } from 'react-toastify'
 
 
 const Signup = () => {
@@ -18,7 +19,7 @@ const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {loading ,error, message} =  useSelector(state => state.authState)
+  const {error} =  useSelector(state => state.authState)
   
   const onChange = async(e) => {
     if (e.target.id === 'avatar') {
@@ -71,10 +72,24 @@ const Signup = () => {
       }
     })
     .catch(err => {
-        console.log(err)
+       
       })
   }
 
+
+  useEffect(()=>{
+    if(error){
+      toast(error,{
+        type : 'warning',
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        theme :'dark',
+        onOpen : () => dispatch(clearError)
+      })
+    }
+  },[error])
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -96,12 +111,6 @@ const Signup = () => {
           <span className='text-blue-700'>Signin</span>
         </Link>
       </div>
-
-      <div>
-       {error && <p className='text-red-500 mt-5'>{error}</p>}
-      </div>
-      
-      
 
     </div>
   )
