@@ -7,14 +7,16 @@ import 'slick-carousel/slick/slick-theme.css';
 import { MdLocationOn, MdMarkEmailRead } from 'react-icons/md';
 import { FaBed, FaBath, FaCouch, FaCarAlt, FaPhoneAlt } from 'react-icons/fa'
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux';
 
 const ListDetails = () => {
   const { listId } = useParams();
-  const [user , setUser] = useState()
-
+  const { user } = useSelector(state => state.authState)
+  const [owner , setOwner] = useState()
   const [listDetails, setListDetails] = useState({});
 
  	const sendEmail = async ()=>{
+
      const { value: text } = await Swal.fire({
        input: "textarea",
        inputLabel: "Message",
@@ -30,11 +32,13 @@ const ListDetails = () => {
       }
      });
      if (text) {
-       const response = await sendEmailToNodemailer({
-          email: user.email,
-          message : text,
-          subject : listDetails.name
-        })
+      window.location.href =`mailto:${owner.email}?subject=${encodeURIComponent(listDetails.name)}&body=${encodeURIComponent(text)}`;
+      //  const response = await sendEmailToNodemailer({
+      //     from : user.email,
+      //     email: owner.email,
+      //     message : text,
+      //     subject : listDetails.name
+      //   })
        Swal.fire("Success",response.message,'success');
      }
   }
@@ -52,8 +56,8 @@ const ListDetails = () => {
     useEffect(() => {
       if (listDetails.user) {
         const fetchOwner = async () => {
-          const owner =await getOwnerDetails(listDetails.user);
-          setUser(owner);
+          const ownerDetail =await getOwnerDetails(listDetails.user);
+          setOwner(ownerDetail);
         }
         fetchOwner()
       }
@@ -167,14 +171,14 @@ const ListDetails = () => {
 
         {/* Right: User Information Section */}
       {
-        user && (<div className="md:w-1/4 p-6 my-20 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center">
+        owner && (<div className="md:w-1/4 p-6 my-20 bg-gray-100 rounded-lg shadow-lg flex flex-col items-center">
           <h1 className="text-2xl font-semibold mb-7">Contact</h1>
           <img
-            src={user.avatar.url}
+            src={owner.avatar.url}
             alt="Profile"
             className="w-32 h-32 rounded-full border-2 border-gray-300 mb-4"
           />
-          <h2 className="text-xl font-bold">{user.name}</h2>
+          <h2 className="text-xl font-bold">{owner.name}</h2>
           
           {/* Email with Icon */}
           <div className='flex flex-col gap-3 mt-8'>
@@ -183,7 +187,7 @@ const ListDetails = () => {
               <div onClick={()=> sendEmail()} className="flex items-center text-gray-600 ">
                   <MdMarkEmailRead className="mr-2" style={{ width: '24px' }} />
                   <button type='button'  className="text-blue-600 hover:underline">
-                    {user.email} 
+                    {owner.email} 
                   </button>
               </div>
            

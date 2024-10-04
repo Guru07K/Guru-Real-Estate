@@ -86,6 +86,7 @@ exports.updateList = async (req, res, next) => {
 // Send email to owner /api/listing/sendEmail
 exports.sendEmailToOwner = async (req,res,next) => {
     sendEmail({
+        from : req.body.from,
         email : req.body.email,
         message : req.body.message,
         subject : req.body.subject

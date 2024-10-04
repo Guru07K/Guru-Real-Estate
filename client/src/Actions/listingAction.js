@@ -101,5 +101,4 @@ export const sendEmailToNodemailer = async (options)=>{
        })
        const data = await res.json()
        return data;
-   
    }
