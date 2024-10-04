@@ -25,7 +25,7 @@ const Signin = () => {
 
   const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch(loginStart())
+      dispatch(loginStart()) // for loader purpose
       fetch(`/api/user/signin`,{
             method : 'POST',
             headers : {
