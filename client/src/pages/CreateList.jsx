@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createList, uploadImage } from '../Actions/listingAction'
-import { listImageUploading, listImageUploadSuccess } from '../slices/listSlice'
+import { listImageUploadfail, listImageUploading, listImageUploadSuccess } from '../slices/listSlice'
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
@@ -9,10 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateList = () => {
 
- const {loading, message, imageUploded} =  useSelector(state => state.listState )
+ const {loading, imageUploading, imageUploded} =  useSelector(state => state.listState )
  const [uploadeimageBefore, setUploadeimageBefore] = useState('')
  const {user} =  useSelector(state => state.authState )
- const {userList} = useSelector(state => state.listState)
 
  const dispatch = useDispatch()
  const navigate = useNavigate()
@@ -55,21 +54,25 @@ const CreateList = () => {
 
   const handleImages = async(e) => {
     dispatch(listImageUploading())
-    
-    const up_image = []
-    for (let i = 0; i <selectedFiles.length; i++) {
-     const uploadedImage = await uploadImage(selectedFiles[i])
-     up_image.push({
-       public_id: uploadedImage.public_id,
-       url: uploadedImage.url
-     })
+    try {
+      const up_image = []
+      for (let i = 0; i <selectedFiles.length; i++) {
+       const uploadedImage = await uploadImage(selectedFiles[i])
+       up_image.push({
+         public_id: uploadedImage.public_id,
+         url: uploadedImage.url
+       })
+      }
+      setListingData({
+        ...listingData, 
+        images: [...listingData.images, ...up_image],
+      })
+  
+      dispatch(listImageUploadSuccess())
+    } catch (error) {
+      dispatch(listImageUploadfail())
     }
-    setListingData({
-      ...listingData, 
-      images: [...listingData.images, ...up_image],
-    })
-
-    dispatch(listImageUploadSuccess())
+   
   }
 
 const handleSubmit = (e) => {
@@ -183,7 +186,7 @@ const deletePreviewImage = (index) =>{
 
              <button disabled={loading} className='p-3 bg-slate-700 rounded-lg text-white hover:opacity-90 disabled:opacity-70'>
               {
-                loading ? message : 'Create list'
+                imageUploading ? 'Image Uploading...' : 'Create list'
               }</button>
               
               <div className="">

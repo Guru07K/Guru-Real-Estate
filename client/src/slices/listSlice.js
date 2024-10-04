@@ -5,7 +5,7 @@ const initialState = {
     message : null,
     loading : false,
     imageUploded : null,
-    isListAdded : false,
+    imageUploading : false,
 }
 
 const listSlice = createSlice({
@@ -15,7 +15,7 @@ const listSlice = createSlice({
         listImageUploading(state,action){
             return{
                 loading : true,
-                message : 'Image Uploading...',
+                imageUploading : true,
                 imageUploded : false,
             }
         },
@@ -23,25 +23,35 @@ const listSlice = createSlice({
             return{
                 loading : false,
                 message : null,
+                imageUploading : false,
                 imageUploded : true,
+            }
+        },
+        listImageUploadfail(state,action){
+            return{
+                loading : false,
+                message : null,
+                imageUploading : false,
+                imageUploded : false,
             }
         },
         createListStart(state, action){
             return {
+                loading : true,
                 error : null,
                 message : null,
-               
             }
         },
         createListSuccess(state, action) {
             return{
                 ...state,
-                message : 'List created successfully',
-                isListAdded : true,
+                loading : false,
+                message : action.payload.message
             }
         },
         createListFail(state, action){
             return {
+                loading : false,
                 error : action.payload,
                 message : null,
             }
@@ -65,9 +75,21 @@ const listSlice = createSlice({
                 message : action.payload.message,
             }
         },
+        clearMessageinListSlice(state, action){
+            return{
+                ...state,
+                message: null
+            }
+        },
+        clearErrorinListSlice(state, action){
+            return{
+                ...state,
+                error: null
+            }
+        },
 
     }
 })
 
-export const {listImageUploading, createListFail, createListStart, createListSuccess, listImageUploadSuccess, getUserDataRequest, getUserDataSuccess} = listSlice.actions
+export const {listImageUploading, createListFail, createListStart, createListSuccess, listImageUploadSuccess, getUserDataRequest, getUserDataSuccess,listImageUploadfail, clearErrorinListSlice, clearMessageinListSlice} = listSlice.actions
 export default listSlice.reducer

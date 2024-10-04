@@ -76,7 +76,7 @@ const Signin = () => {
       <h1 className='text-center text-3xl font-semibold my-5'>Signin</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
         <input type="text" className='focus:outline-none p-3 border rounded-lg' placeholder='Email' id='email' onChange={onchange} value={userData.name}/>
-        <input type="paassword" className='focus:outline-none p-3 border rounded-lg' placeholder='password' id='password'  onChange={onchange} value={userData.password}/>
+        <input type="password" className='focus:outline-none p-3 border rounded-lg' placeholder='password' id='password'  onChange={onchange} value={userData.password}/>
         <button disabled={loading} className='bg-slate-700 p-3 rounded-lg text-white hover:opacity-90'>
          {loading ? 'Loading...' : 'SIGN IN'}
         </button>
@@ -90,7 +90,7 @@ const Signin = () => {
           <span className='text-blue-600 '>Signup</span>
         </Link>
       </div>
-      
+
     </div>
   )
 }

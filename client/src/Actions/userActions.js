@@ -45,7 +45,7 @@ export const updateProfileimage = (url, publicId) => async (dispatch) => {
    }) 
     .then(res => res.json())
     .then(data =>{
-         dispatch(updateProfileSuccess(data.user))
+         dispatch(updateProfileSuccess(data))
         })
     .catch(err => dispatch(updateProfileFail(err)))
 }
@@ -58,18 +58,6 @@ export const deleteUserAction = (userId) => async(dispatch) =>{
                 })
 
     const data = await res.json() 
-    if(data.success === true) {
-        if(data.message){
-            toast(data.message,{
-            type : 'success',
-            position: "bottom-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            theme :'colored'
-            })
-        }
-    } 
     if(!data.success){
         dispatch(deleteUserFail(data.message))
         return
@@ -85,21 +73,8 @@ export const logoutAction = async (dispatch) => {
     dispatch(logOutUserRequest())
     await fetch(`/api/user/logout`)
           .then(response => response.json())
-          .then(data => {
-                dispatch(logOutUserSuccess())
-                if(data.success === true) {
-                    if(data.message){
-                        toast(data.message,{
-                        type : 'success',
-                        position: "bottom-center",
-                        autoClose: 3000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        theme :'dark'
-                        })
-                    }
-                } 
-            }).catch(err => {
+          .then(data =>dispatch(logOutUserSuccess())
+          ).catch(err => {
                 dispatch(logOutUserFail(err.message))
             })
 }

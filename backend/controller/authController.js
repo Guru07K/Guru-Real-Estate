@@ -105,6 +105,7 @@ exports.updateProfile = async (req, res, next) => {
     const user = await User.findByIdAndUpdate(decoded.id, newUserData, { new: true });
     
     res.status(200).json({
+        message : 'profile updated successfully',
         success: true,
         user
     });

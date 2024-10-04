@@ -16,10 +16,10 @@ exports.createList = async (req, res, next) => {
     }
 }                 
 
-// Get list by user   ---- /api/listing/getListbyuser/${userId}
-exports.getLists = async (req, res, next) => {
+// Get list by user   ---- /api/listing/getuserLists
+exports.getUserLists = async (req, res, next) => {
 
-        const lists = await List.find()
+        const lists = await List.find({user : req.user})
 
         if(!lists) {
             return next(new ErrorHandler('List not added yet', 404))

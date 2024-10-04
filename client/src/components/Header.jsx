@@ -74,21 +74,30 @@ const Header = () => {
 
         {/* Mobile Dropdown */}
         <div className="relative sm:hidden">
-          <button onClick={toggleMenu} className="text-slate-700 hover:scale-125">
-            <FaEllipsisV className="text-2xl" />
-          </button>
+          {
+            token ? (
+              <button onClick={toggleMenu} className='hover:scale-125'>
+                <img className='h-7 w-7 rounded-full' src={user.avatar.url} alt="profile" />
+              </button>
+            ) : (
+                <button onClick={toggleMenu} className="text-slate-700 hover:scale-125">
+                   <FaEllipsisV className="text-2xl" />
+                </button>
+            )
+          }
+         
 
           {isMenuOpen && (
-            <ul className={`absolute right-0 bg-white shadow-md rounded mt-1 p-2 z-10`}>
-              <li className="hover:scale-125">
+            <ul className={`absolute right-0 bg-white shadow-md rounded mt-1 p-2`}>
+              <li>
                 <Link to={"/about"} onClick={() => setIsMenuOpen(false)} className='block text-slate-700 p-2'>About</Link>
               </li>
-              <li className="hover:scale-125">
+              <li>
                 <Link to={"/"} onClick={() => setIsMenuOpen(false)} className='block text-slate-700 p-2'>Home</Link>
               </li>
-              <li className="hover:scale-125">
+              <li>
                 {token ? (
-                  <Link to={"/profile"} onClick={() => setIsMenuOpen(false)} className='block text-slate-700 p-2'>Profile</Link>
+                  <Link to={"/profile"} onClick={() => setIsMenuOpen(false)} className='block  text-slate-700 p-2'>Profile</Link>
                 ) : (
                   <Link to={"/signin"} onClick={() => setIsMenuOpen(false)} className='block text-slate-700 p-2'>Signin</Link>
                 )}

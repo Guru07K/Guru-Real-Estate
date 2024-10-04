@@ -6,6 +6,8 @@ import { deletePreviewList} from '../Actions/listingAction'
 import { AiFillDelete } from "react-icons/ai";
 import { RiEdit2Fill } from "react-icons/ri";
 import { getUserDataSuccess } from '../slices/listSlice'
+import { Alert, Button, Stack } from '@mui/material'
+import Swal from 'sweetalert2'
 
 
 const Profile = () => {
@@ -57,21 +59,65 @@ const Profile = () => {
 };
  
   const handleDeleteUser = () => {
-      dispatch(deleteUserAction(user._id))
-      sessionStorage.clear('token');
-      navigate('/')  
+      
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to Login agin witg this credientials!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteUserAction(user._id))
+          sessionStorage.clear('token');
+          navigate('/')
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your Account has been deleted.",
+            icon: "success"
+          });
+        }
+      });
+     
   }
   
   const handleLogoutUser = () => {
-    dispatch(logoutAction)
-    sessionStorage.clear('token');
-    navigate('/')
+   
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You want to log out?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Logout"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(logoutAction)
+            sessionStorage.clear('token');
+            navigate('/')
+            Swal.fire({
+              title: "Loged out!",
+              text: "logout successfully.",
+              icon: "success"
+            })
+          }
+        })
+    
   } 
 
   const handleDeleteUserList = async (listItemId, userId) => {
    const data = await dispatch(deletePreviewList(listItemId, userId))
    if(data.success === true){
-     navigate('/')
+      await fetch(`/api/listing/getuserLists`,{
+        method: 'GET',
+        headers : {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+        .then(data => dispatch( getUserDataSuccess(data)) )
    }
   }
 
@@ -82,7 +128,7 @@ const Profile = () => {
 
   const fetchUsersList = async() => {
     setToggle(!toggle)
-    await fetch(`/api/listing/getLists`,{
+    await fetch(`/api/listing/getuserLists`,{
       method: 'GET',
       headers : {
         'Content-Type': 'application/json'
@@ -171,29 +217,9 @@ const Profile = () => {
         {/* show List button */}
 
         <div className="flex justify-center mt-5">
-          <button
-            onClick={() => fetchUsersList()}
-            type="button"
-            className="p-3 text-white bg-blue-700 hover:opacity-70 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center inline-flex items-center me-2 "
-          >
-            <svg
-              className="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-            <span className="sr-only"></span>
-            &nbsp; Show List
-          </button>
+              <Button variant="contained" onClick={() => fetchUsersList()} >
+               Show Your List
+             </Button>
         </div>
   
         
@@ -204,11 +230,11 @@ const Profile = () => {
       <div>
         {loading && <p>Loading...</p>}
         { 
-        toggle ? ( userList && userList.length > 0 && (
+        toggle && ( userList && userList.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             
             {userList.map((listItem) => (
-              user._id === listItem.user ?       
+              user._id === listItem.user &&       
                 <div key={listItem._id}  className="p-3 border-2 bg-white  my-5 mx-5 ">
                   <Link to={`/listDetails/${listItem._id}`}>
                     <div>
@@ -240,11 +266,16 @@ const Profile = () => {
                         </button>
                     </div>
           
-                </div> : null
+                </div>   
             
             ))}
           </div>
-        )) : null
+        ) : (
+              <Stack sx={{ width: '100%', alignItems:'center',marginY:3 }} spacing={2}>
+                <Alert severity="warning" sx={{padding:2 }}> List not added yet !</Alert>
+              </Stack>
+             )
+      )  
          
         }
       </div>

@@ -5,8 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { MdLocationOn, MdMarkEmailRead } from 'react-icons/md';
-import { FaBed, FaBath, FaCouch, FaCarAlt, FaPhoneAlt } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { FaBed, FaBath, FaCouch, FaCarAlt, FaPhoneAlt } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
 const ListDetails = () => {
@@ -37,8 +36,6 @@ const ListDetails = () => {
           subject : listDetails.name
         })
        Swal.fire("Success",response.message,'success');
-     }else{
-
      }
   }
 

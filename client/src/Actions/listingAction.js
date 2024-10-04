@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createListFail, createListSuccess, getUserDataSuccess } from '../slices/listSlice'
+import { createListFail, createListStart, createListSuccess} from '../slices/listSlice'
 
 
 // Upload listing image
@@ -16,7 +16,7 @@ export const uploadImage = async (file) => {
 
 //   /api/listing/createlist
 export const createList =  (listData, navigate) => async (dispatch)=> {
-
+  dispatch(createListStart())
     await fetch(`/api/listing/createlist`,{
         method: 'POST',
         headers : {
@@ -41,7 +41,6 @@ export const deletePreviewList =  (listId, userId) => async (dispatch)=> {
   return data;
   
 }
-
 
 //   /api/listing/createlist
 export const updateList =  (listId, listData, navigate, setSelectedFiles) => async (dispatch)=> {

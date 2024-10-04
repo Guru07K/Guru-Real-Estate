@@ -78,8 +78,8 @@ const authSlice = createSlice({
                 ...state,
                 loading : false,
                 isUpdated: true,
-                message : 'profile updated successfully',
-                user : action.payload
+                message : action.payload.message,
+                user : action.payload.user
             }
         },
         updateProfileFail(state, action){
