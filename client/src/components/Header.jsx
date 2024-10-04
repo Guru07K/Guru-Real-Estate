@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FaSearch, FaEllipsisV } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import { RiMenuFill } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -81,7 +82,7 @@ const Header = () => {
               </button>
             ) : (
                 <button onClick={toggleMenu} className="text-slate-700 hover:scale-125">
-                   <FaEllipsisV className="text-2xl" />
+                   <RiMenuFill className='text-2xl' />
                 </button>
             )
           }
