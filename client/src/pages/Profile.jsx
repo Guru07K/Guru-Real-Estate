@@ -251,12 +251,12 @@ const Profile = () => {
                         ) : (
                           <p>No image available</p>
                         )}
-                      </div>
+                    </div>
 
                       <div className="mt-10 flex-col">
                         <h3><span className="text-lg font-semibold ">Title :&nbsp;</span>{listItem.name}</h3>
-                        <p className='truncate'><span className="text-lg font-semibold   " >Description :&nbsp;</span>{listItem.description}</p>
-                        <p><span className="text-lg font-semibold   " >Type :&nbsp;</span>{listItem.type}</p>
+                        <p className='truncate'><span className="text-lg font-semibold" >Description :&nbsp;</span>{listItem.description}</p>
+                        <p><span className="text-lg font-semibold" >Type :&nbsp;</span>{listItem.type}</p>
                       </div>
                     </Link> 
                     

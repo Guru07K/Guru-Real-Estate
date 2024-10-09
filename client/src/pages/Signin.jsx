@@ -66,7 +66,7 @@ const Signin = () => {
           position: "bottom",  
           showConfirmButton: false,
           timer: 3000,
-          didOpen: () => dispatch(clearAuthMessage())
+          didOpen: () => dispatch(clearAuthMessage)
         });
         Toast.fire({
           icon: "success",
