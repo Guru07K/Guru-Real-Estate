@@ -7,13 +7,13 @@ import 'slick-carousel/slick/slick-theme.css';
 import { MdLocationOn, MdMarkEmailRead } from 'react-icons/md';
 import { FaBed, FaBath, FaCouch, FaCarAlt, FaPhoneAlt } from 'react-icons/fa'
 import Swal from 'sweetalert2'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Backbutton from './Backbutton';
 import { Helmet } from 'react-helmet-async';
 
 const ListDetails = () => {
   const { listId } = useParams();
-  // const { user } = useSelector(state => state.authState)
+  const { user } = useSelector(state => state.authState)
   const [owner , setOwner] = useState()
   const [listDetails, setListDetails] = useState({});
 
